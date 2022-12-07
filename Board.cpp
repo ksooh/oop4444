@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <vector>
 #include "CWall.h"
 #include "CSphere.h"
@@ -10,7 +10,7 @@ class Board {
 
 private:
     CSphere brd[10][8];
-    CSphere extBrd[15];
+    CSphere extBrd [15];
     float x_bdCtr, y_bdCtr, z_bdCtr;
     int rBoundary;
     int empFl = -3;
@@ -58,7 +58,7 @@ public:
                     brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - 0.5 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
                 else if (i % 2 == 1) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 - j) * brd[i][j].getRadius()/0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
                 }
 
                 if (i > 3)
@@ -75,7 +75,7 @@ public:
 
         //�ٿ���� �� ����ϴ� �ݺ���
         int hit = 0;
-
+        
         for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
@@ -164,42 +164,42 @@ public:
         float bCent_x = ball.getCenter().x;
 
         if (m < sizeof(brd) / sizeof(*brd) - 1) {
-            if (m == -1 && n == -1) {
+            if (m==-1&&n==-1) {
                 int i;
-                for (i = 0; i < sizeof(extBrd) / sizeof(*extBrd); i++) {
+                for (i=0; i<sizeof(extBrd)/sizeof(*extBrd); i++) {
                     if (!extBrd[i].getExist()) {
                         break;
                     }
                 }
                 extBrd[i].setColor(ball.getColor());
-                extBrd[i].setCenter(ball.getCenter().x, ball.getCenter().y, ball.getCenter().z);
+                extBrd[i].setCenter(ball.getCenter().x,ball.getCenter().y,ball.getCenter().z);
                 extBrd[i].setExist(true);
-
+                
             }
             if (bCent_x >= brd[m][n].getCenter().x) {
                 if (m % 2 == 0) {
-                    brd[m + 1][n].setColor(ball.getColor());
+                    brd[m + 1][n].revColor(ball.getColor());
                     brd[m + 1][n].setExist(true);
                 }
                 else if (m % 2 == 1) {
-                    brd[m + 1][n + 1].setColor(ball.getColor());
+                    brd[m + 1][n + 1].revColor(ball.getColor());
                     brd[m + 1][n + 1].setExist(true);
                 }
             }
             else if (bCent_x < brd[m][n].getCenter().x) {
                 if (m % 2 == 0) {
-                    brd[m + 1][n - 1].setColor(ball.getColor());
+                    brd[m + 1][n - 1].revColor(ball.getColor());
                     brd[m + 1][n - 1].setExist(true);
                 }
                 else if (m % 2 == 1) {
-                    brd[m + 1][n].setColor(ball.getColor());
+                    brd[m + 1][n].revColor(ball.getColor());
                     brd[m + 1][n].setExist(true);
                 }
             }
             rBoundary++;
-            return;
+//            return true;
         }
-        else return;
+//        else return false;
     }
 
     void chEmpty(int m, int n, int* hMax, int* wMin, int* wMax) {
@@ -321,4 +321,5 @@ public:
     }
 
 };
+
 
