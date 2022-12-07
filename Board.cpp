@@ -163,7 +163,7 @@ public:
         
         float bCent_x = ball.getCenter().x;
         
-        if(brd[m][n].getExist()){
+//        if(brd[m][n].getExist()){
             if (m < sizeof(brd) / sizeof(brd[0]) - 1) {
                 //            if (m==-1&&n==-1) {
                 //                int i;
@@ -205,7 +205,7 @@ public:
                 //            return true;
             }
             //        else return false;
-        }
+//        }
     }
 
     void chEmpty(int m, int n, int* hMax, int* wMin, int* wMax) {
