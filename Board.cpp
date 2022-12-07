@@ -181,24 +181,24 @@ public:
                     if (m % 2 == 0) {
                         brd[m + 1][n].revColor(ball.getColor());
                         brd[m + 1][n].setExist(true);
-                        return (m+1)*10+n;
+                        return m*1000+n*100+(m+1)*10+n;
                     }
                     else if (m % 2 == 1) {
                         brd[m + 1][n + 1].revColor(ball.getColor());
                         brd[m + 1][n + 1].setExist(true);
-                        return (m+1)*10+n+1;
+                        return m*1000+n*100+(m+1)*10+n+1;
                     }
                 }
                 else if (bCent_x < brd[m][n].getCenter().x) {
                     if (m % 2 == 0) {
                         brd[m + 1][n - 1].revColor(ball.getColor());
                         brd[m + 1][n - 1].setExist(true);
-                        return (m+1)*10+ n-1;
+                        return m*1000+n*100+(m+1)*10+ n-1;
                     }
                     else if (m % 2 == 1) {
                         brd[m + 1][n].revColor(ball.getColor());
                         brd[m + 1][n].setExist(true);
-                        return (m+1)*10+n-1;
+                        return m*1000+n*100+(m+1)*10+n-1;
                     }
                 }
                 rBoundary++;
