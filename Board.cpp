@@ -55,12 +55,12 @@ public:
                     brd[i][j].setColor(d3d::GREEN);
 
                 if (i % 2 == 0) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2  - j) * brd[i][j].getRadius() / 0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2  - j) * brd[i][j].getRadius() / 0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
                 else if (i % 2 == 1) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
                 }
-
+                
                 if (i > 3)
                 {
                     brd[i][j].setExist(false);
