@@ -38,9 +38,9 @@ public:
         uniform_int_distribution<int> dis(1, 4);
 
 
-         for (int i = 0; i < sizeof(brd) / sizeof(*brd); i++) //row
+        for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
         {
-            for (int j = 0; j < sizeof(brd[0]) / sizeof(*brd[0]); j++) //col
+            for (int j = 0; j < sizeof(brd[0]) / sizeof(CSphere); j++) //col
             {
                 brd[i][j].create(pDevice);
 
@@ -54,13 +54,13 @@ public:
                 else
                     brd[i][j].setColor(d3d::GREEN);
 
-                 if (i % 2 == 0) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2  - j) * brd[i][j].getRadius() / 0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
+                if (i % 2 == 0) {
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2  - j) * brd[i][j].getRadius() / 0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
                 else if (i % 2 == 1) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
                 }
-                
+
                 if (i > 3)
                 {
                     brd[i][j].setExist(false);
@@ -76,10 +76,10 @@ public:
         //�ٿ���� �� ����ϴ� �ݺ���
         int hit = 0;
         
-        for (int i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
+        for (int i = 0; i < sizeof(brd[0]) / sizeof(CSphere); i++) {
             if (brd[rBoundary][i].getExist())
                 break;
-            else if (i == sizeof(brd[0]) / sizeof(*brd[0]) && (!brd[rBoundary][i].getExist())) {
+            else if (i == sizeof(brd[0]) / sizeof(CSphere) && (!brd[rBoundary][i].getExist())) {
                 i = -1;
                 rBoundary--;
 
@@ -87,7 +87,7 @@ public:
         }
         // �Ͷ߸��� �ݺ���
         for (int i = 0; i < rBoundary; i++) {
-            for (int j = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); j++) {
+            for (int j = 0; i < sizeof(brd[0]) / sizeof(CSphere); j++) {
                 if (brd[i][j].getChflag() == 1) {
                     //�Ͷ߸��� ����
                     brd[i][j].setExist(false);
@@ -106,7 +106,7 @@ public:
             if (brd[m][n].getColor() == col) {
                 brd[m][n].setChflag(cs);
 
-                if (n < sizeof(brd[0]) / sizeof(*brd[0]) - 1) {
+                if (n < sizeof(brd[0]) / sizeof(CSphere) - 1) {
                     chNeighball(m, n + 1, col, cs);
                 }
 
@@ -128,7 +128,7 @@ public:
 
                 else if (m % 2 == 1) {
                     if (m <= rBoundary) {
-                        if (n < sizeof(brd[0]) / sizeof(*brd[0]) - 1)
+                        if (n < sizeof(brd[0]) / sizeof(CSphere) - 1)
                             chNeighball(m + 1, n + 1, col, cs);
 
                         chNeighball(m + 1, n, col, cs);
@@ -138,7 +138,7 @@ public:
 
                     if (m > 0) {
                         chNeighball(m - 1, n, col, cs);
-                        if (n < sizeof(brd[0]) / sizeof(*brd[0]) - 1)
+                        if (n < sizeof(brd[0]) / sizeof(CSphere) - 1)
                             chNeighball(m - 1, n + 1, col, cs);
                     }
                 }
@@ -159,12 +159,12 @@ public:
         }
     }
 
-   int bAttach(int m, int n, CSphere& ball) {
+    int bAttach(int m, int n, CSphere& ball) {
         
         float bCent_x = ball.getCenter().x;
         
         if(brd[m][n].getExist()){
-            if (m < sizeof(brd) / sizeof(*brd) - 1) {
+            if (m < sizeof(brd) / sizeof(brd[0]) - 1) {
                 //            if (m==-1&&n==-1) {
                 //                int i;
                 //                for (i=0; i<sizeof(extBrd)/sizeof(*extBrd); i++) {
@@ -177,7 +177,7 @@ public:
                 //                extBrd[i].setExist(true);
                 //
                 //            }
-               if (bCent_x >= brd[m][n].getCenter().x) {
+                if (bCent_x >= brd[m][n].getCenter().x) {
                     if (m % 2 == 0) {
                         brd[m + 1][n].revColor(ball.getColor());
                         brd[m + 1][n].setExist(true);
@@ -255,7 +255,7 @@ public:
         int* max;
         int* hei;
         int hit = 0;
-        for (i = 0; i < sizeof(brd[0]) / sizeof(*brd[0]); i++) {
+        for (i = 0; i < sizeof(brd[0]) / sizeof(CSphere); i++) {
             if (brd[rBoundary][i].getColor() == 0)
                 break;
         }
