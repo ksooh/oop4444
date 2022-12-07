@@ -159,47 +159,49 @@ public:
         }
     }
 
-    void bAttach(int m, int n, CSphere& ball) {
-
+   void bAttach(int m, int n, CSphere& ball) {
+        
         float bCent_x = ball.getCenter().x;
-
-        if (m < sizeof(brd) / sizeof(*brd) - 1) {
-            if (m==-1&&n==-1) {
-                int i;
-                for (i=0; i<sizeof(extBrd)/sizeof(*extBrd); i++) {
-                    if (!extBrd[i].getExist()) {
-                        break;
+        
+        if(brd[m][n].getExist()){
+            if (m < sizeof(brd) / sizeof(*brd) - 1) {
+                //            if (m==-1&&n==-1) {
+                //                int i;
+                //                for (i=0; i<sizeof(extBrd)/sizeof(*extBrd); i++) {
+                //                    if (!extBrd[i].getExist()) {
+                //                        break;
+                //                    }
+                //                }
+                //                extBrd[i].setColor(ball.getColor());
+                //                extBrd[i].setCenter(ball.getCenter().x,ball.getCenter().y,ball.getCenter().z);
+                //                extBrd[i].setExist(true);
+                //
+                //            }
+                if (bCent_x >= brd[m][n].getCenter().x) {
+                    if (m % 2 == 0) {
+                        brd[m + 1][n].revColor(ball.getColor());
+                        brd[m + 1][n].setExist(true);
+                    }
+                    else if (m % 2 == 1) {
+                        brd[m + 1][n + 1].revColor(ball.getColor());
+                        brd[m + 1][n + 1].setExist(true);
                     }
                 }
-                extBrd[i].setColor(ball.getColor());
-                extBrd[i].setCenter(ball.getCenter().x,ball.getCenter().y,ball.getCenter().z);
-                extBrd[i].setExist(true);
-                
+                else if (bCent_x < brd[m][n].getCenter().x) {
+                    if (m % 2 == 0) {
+                        brd[m + 1][n - 1].revColor(ball.getColor());
+                        brd[m + 1][n - 1].setExist(true);
+                    }
+                    else if (m % 2 == 1) {
+                        brd[m + 1][n].revColor(ball.getColor());
+                        brd[m + 1][n].setExist(true);
+                    }
+                }
+                rBoundary++;
+                //            return true;
             }
-            if (bCent_x >= brd[m][n].getCenter().x) {
-                if (m % 2 == 0) {
-                    brd[m + 1][n].revColor(ball.getColor());
-                    brd[m + 1][n].setExist(true);
-                }
-                else if (m % 2 == 1) {
-                    brd[m + 1][n + 1].revColor(ball.getColor());
-                    brd[m + 1][n + 1].setExist(true);
-                }
-            }
-            else if (bCent_x < brd[m][n].getCenter().x) {
-                if (m % 2 == 0) {
-                    brd[m + 1][n - 1].revColor(ball.getColor());
-                    brd[m + 1][n - 1].setExist(true);
-                }
-                else if (m % 2 == 1) {
-                    brd[m + 1][n].revColor(ball.getColor());
-                    brd[m + 1][n].setExist(true);
-                }
-            }
-            rBoundary++;
-//            return true;
+            //        else return false;
         }
-//        else return false;
     }
 
     void chEmpty(int m, int n, int* hMax, int* wMin, int* wMax) {
