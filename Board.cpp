@@ -163,8 +163,8 @@ public:
         
         float bCent_x = ball.getCenter().x;
         
-//        if(brd[m][n].getExist()){
-            if (m < sizeof(brd) / sizeof(brd[0]) - 1) {
+        if(brd[m][n].getExist()){
+//            if (m < sizeof(brd) / sizeof(brd[0]) - 1) {
                 //            if (m==-1&&n==-1) {
                 //                int i;
                 //                for (i=0; i<sizeof(extBrd)/sizeof(*extBrd); i++) {
