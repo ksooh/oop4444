@@ -159,7 +159,7 @@ public:
         }
     }
 
-   void bAttach(int m, int n, CSphere& ball) {
+   int bAttach(int m, int n, CSphere& ball) {
         
         float bCent_x = ball.getCenter().x;
         
@@ -181,20 +181,24 @@ public:
                     if (m % 2 == 0) {
                         brd[m + 1][n].revColor(ball.getColor());
                         brd[m + 1][n].setExist(true);
+                        return m+1,n;
                     }
                     else if (m % 2 == 1) {
                         brd[m + 1][n + 1].revColor(ball.getColor());
                         brd[m + 1][n + 1].setExist(true);
+                        return m+1, n+1;
                     }
                 }
                 else if (bCent_x < brd[m][n].getCenter().x) {
                     if (m % 2 == 0) {
                         brd[m + 1][n - 1].revColor(ball.getColor());
                         brd[m + 1][n - 1].setExist(true);
+                        return m+1, n-1;
                     }
                     else if (m % 2 == 1) {
                         brd[m + 1][n].revColor(ball.getColor());
                         brd[m + 1][n].setExist(true);
+                        return m+1, n-1;
                     }
                 }
                 rBoundary++;
