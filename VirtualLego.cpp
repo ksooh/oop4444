@@ -266,12 +266,13 @@ bool Setup()
     }
 
     // create blue ball for set direction
-    if (false == g_target_blueball.create(Device, d3d::BLUE)) return false;
+    if (false == g_target_blueball.create(Device, d3d::WHITE)) return false;
     g_target_blueball.setCenter(0, (float)M_RADIUS, 0);
 
     // create shoot ball
     for (i = 0; i < SHOOTNUM; i++) {
         if (false == g_shoot_ball[i].create(Device, d3d::YELLOW)) return false;
+        g_shoot_ball[i].setColor(d3d::YELLOW);
         g_shoot_ball[i].setCenter(0.0f, (float)M_RADIUS, -4.5f);
         g_shoot_ball[i].setPower(0, 0);
     }
@@ -346,24 +347,35 @@ bool Display(float timeDelta)
             g_legowall[i].hitBy(g_shoot_ball[shootnum - 1]);
         }
 
-        makeBoard.draw(Device, g_mWorld);
+
+        bool loopcheck = true;
 
         for (i = 0; i < makeBoard.getRow(); i++) {
+            if (!loopcheck) {
+                break;
+            }
             for (j = 0; j < makeBoard.getCol(); j++) {
                 if (makeBoard.getBall(i, j).getExist()) {
                     if (makeBoard.getBall(i, j).hasIntersected(g_shoot_ball[shootnum - 1])) {
                         //i,j
-                        makeBoard.bAttach(i, j, g_shoot_ball[shootnum - 1]);
+                        int temp;
+                        temp = makeBoard.bAttach(i, j, g_shoot_ball[shootnum - 1]);
                         g_shoot_ball[shootnum - 1].destroy();
+
                         if (shootnum > 1) {
                             shootnum--;
                         }
+                        loopcheck = false;
+                        break;
                         
                     }
                     
                 }
             }
         }
+
+        makeBoard.draw(Device, g_mWorld);
+
         spacepress = false;
 
         // getDistance - 공과 공 사이의 거리를 float로 준다.
@@ -450,6 +462,21 @@ bool Display(float timeDelta)
             }
             Menu->DrawText(NULL, Sch, -1, &MenuRt, DT_NOCLIP, D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
             Menu->Release();
+        }
+        else if (g_screen.Gmode() == 1) {   // 게임 중 shoot num 보이기
+            LPD3DXFONT fFont;
+            D3DXCreateFont(Device, 50, 0, FW_NORMAL, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial", &fFont);
+
+            RECT frt;
+            SetRect(&frt, g_screen.Gx(), g_screen.Gy(), 0, 0);
+            char fch[100];
+            string a = "LEFT : ";
+            a += to_string(shootnum);
+            strcpy(fch, a.c_str());
+
+            fFont->DrawText(NULL, fch, -1, &frt, DT_NOCLIP, D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f));
+            fFont->Release();
         }
 
 
