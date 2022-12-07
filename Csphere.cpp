@@ -186,6 +186,45 @@ void CSphere::setColor(const D3DXCOLOR ball_color)
     }
 }
 
+void CSphere::revColor(int color)
+{
+    if (color == 1)
+    {
+        this->ball_color = 1;
+        this->m_mtrl.Ambient = d3d::YELLOW;
+        this->m_mtrl.Diffuse = d3d::YELLOW;
+        this->m_mtrl.Specular = d3d::YELLOW;
+    }
+    else if (color == 2)
+    {
+        this->ball_color = 2;
+        this->m_mtrl.Ambient = d3d::RED;
+        this->m_mtrl.Diffuse = d3d::RED;
+        this->m_mtrl.Specular = d3d::RED;
+    }
+    else if (color == 3)
+    {
+        this->ball_color = 3;
+        this->m_mtrl.Ambient = d3d::BLUE;
+        this->m_mtrl.Diffuse = d3d::BLUE;
+        this->m_mtrl.Specular = d3d::BLUE;
+    }
+    else if (color == 4)
+    {
+        this->ball_color = 4; //Green
+        this->m_mtrl.Ambient = d3d::GREEN;
+        this->m_mtrl.Diffuse = d3d::GREEN;
+        this->m_mtrl.Specular = d3d::GREEN;
+    }
+    else
+    {
+        this->ball_color = 0;
+        this->m_mtrl.Ambient = d3d::MAGENTA;
+        this->m_mtrl.Diffuse = d3d::MAGENTA;
+        this->m_mtrl.Specular = d3d::MAGENTA;
+    }
+}
+
 int CSphere::getColor()
 {
     return this->ball_color;

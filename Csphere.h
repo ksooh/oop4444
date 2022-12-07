@@ -15,7 +15,7 @@ private:
     bool ball_exist = true;
     int chflag;
 
-    int ball_color; // 1 - ��� 2- ���� 3- �Ķ� 4- �ʷ�
+    int ball_color; // 1 - 노랑 2- 빨강 3- 파랑 4- 초록
     float pre_center_x, pre_center_z;
 
 public:
@@ -47,6 +47,7 @@ public:
     D3DXVECTOR3 getCenter(void) const;
 
     void setColor(const D3DXCOLOR ball_color);
+    void revColor(int color);
     int getColor();
 
     double getPreCenter_x() const;
