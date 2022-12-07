@@ -38,9 +38,9 @@ public:
         uniform_int_distribution<int> dis(1, 4);
 
 
-        for (int i = 0; i < sizeof(brd) / sizeof(brd[0]); i++) //row
+         for (int i = 0; i < sizeof(brd) / sizeof(*brd); i++) //row
         {
-            for (int j = 0; j < sizeof(brd[0]) / sizeof(CSphere); j++) //col
+            for (int j = 0; j < sizeof(brd[0]) / sizeof(*brd[0]); j++) //col
             {
                 brd[i][j].create(pDevice);
 
@@ -54,11 +54,11 @@ public:
                 else
                     brd[i][j].setColor(d3d::GREEN);
 
-                if (i % 2 == 0) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2  - j) * brd[i][j].getRadius() / 0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
+                 if (i % 2 == 0) {
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2  - j) * brd[i][j].getRadius() / 0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius() / 0.5);
                 }
                 else if (i % 2 == 1) {
-                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(CSphere) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
+                    brd[i][j].setCenter(x_bdCtr - (sizeof(brd[0]) / sizeof(*brd[0]) / 2 -0.5 - j) * brd[i][j].getRadius()/0.5, 0.5, z_bdCtr + depth / 2 - i * brd[i][j].getRadius()/0.5);
                 }
                 
                 if (i > 3)
